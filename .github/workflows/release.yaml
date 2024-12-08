@@ -5,6 +5,7 @@ name: Create and publish a Docker image
 on:
   push:
     branches: ['release']
+  workflow_dispatch:
 
 # Defines two custom environment variables for the workflow. These are used for the Container registry domain, and a name for the Docker image that this workflow builds.
 env:
@@ -26,13 +27,9 @@ jobs:
       matrix:
         images:
           - context: caddy/cf
-            tags:
-              - caddy:cf
-              - caddy:2.9-cf
+            tags: caddy:cf,caddy:2.9-cf
           - context: caddy/cf-proxy
-            tags:
-              - caddy:cf-proxy
-              - caddy:2.9-cf-proxy
+            tags: caddy:cf-proxy,caddy:2.9-cf-proxy
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
